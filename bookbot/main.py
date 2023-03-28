@@ -1,24 +1,33 @@
-def count_words(file_contents):
+path_to_file = "books/frankenstein.txt"
+
+def get_word_count(file_contents):
     words = file_contents.split()
     return len(words)
 
-def count_characters(file_contents):
-    characters = {}
+def get_all_chars(file_contents):
+    chars = {}
 
     for char in file_contents:
         char_to_lower = char.lower()
 
-        if (char_to_lower not in characters):
-            characters[char_to_lower] = 1
-        else:
-            characters[char_to_lower] += 1
+        if char_to_lower.isalpha():
+            if (char_to_lower not in chars):
+                chars[char_to_lower] = 1
+            else:
+                chars[char_to_lower] += 1
 
-    return characters
+    return chars
 
-with open("./books/frankenstein.txt", "r") as file:
+with open(path_to_file, "r") as file:
     file_contents = file.read()
-    word_count = count_words(file_contents)
-    char_count = count_characters(file_contents)
+    word_count = get_word_count(file_contents)
+    all_characters = get_all_chars(file_contents)
 
-    print(word_count)
-    print(char_count)
+    print(f"--- Begin report of {path_to_file} ---")
+    print(f"{word_count} words found in the document\n")
+    
+    for char in all_characters:
+        print(f"The '{char}' character was found {all_characters[char]} times")
+    
+    print("--- End report ---")
+    
